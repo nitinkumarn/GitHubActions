@@ -4,11 +4,12 @@
 name: Maven Package
 
 on:
-  release:
-    types: [created]
-    push:
-      branches:
-        - main
+  push:
+    branches:
+      - main # Run the workflow on changes pushed to the 'main' branch
+  pull_request:
+    branches:
+      - main # Optionally, run the workflow for pull requests targeting the 'main' branch
 
 jobs:
   build:
@@ -34,4 +35,4 @@ jobs:
     - name: Publish to GitHub Packages Apache Maven
       run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
       env:
-        GITHUB_TOKEN: ${{ github.token }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
